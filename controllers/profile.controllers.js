@@ -33,6 +33,36 @@ async function replaceEducation(req, res, next) {
     res.json(p);
   } catch (e) { next(e); }
 }
+//Habilidades blandas
+  async function addSoftSkills(req, res, next) {
+  try {
+    const p = await svc.addSoftSkills(req.params.id, req.validated);
+    if (!p) return res.status(404).json({ message: 'Perfil no encontrado' });
+    res.json(p);
+  } catch (e) {
+    next(e);
+  }
+}
+
+async function addTechSkills(req, res, next) {
+  try {
+    const p = await svc.addTechSkills(req.params.id, req.validated);
+    if (!p) return res.status(404).json({ message: 'Perfil no encontrado' });
+    res.json(p);
+  } catch (e) {
+    next(e);
+  }
+}
+
+async function addJobInformation(req, res, next){
+  try {
+    const p = await svc.addJobInformation(req.params.id, req.validated);
+    if (!p) return res.status(404).json({ message: 'Perfil no encontrado' });
+    res.json(p);
+  } catch (e) {
+    next(e);
+  }
+}
 
 async function addExperience(req, res, next) {
   try {
@@ -43,6 +73,7 @@ async function addExperience(req, res, next) {
 }
 
 async function replaceExperience(req, res, next) {
+
   try {
     const p = await svc.replaceExperience(req.params.id, req.validated);
     if (!p) return res.status(404).json({ message: 'Perfil no encontrado' });
@@ -50,6 +81,14 @@ async function replaceExperience(req, res, next) {
   } catch (e) { next(e); }
 }
 
+
+async function addLearningMethod(req, res, next){
+  try {
+    const p = await svc.addLearningMethod(req.params.id, req.validated);
+    if (!p) return res.status(404).json({ message: 'Perfil no encontrado' });
+    res.json(p);
+  } catch (e) { next(e); }
+}
 async function getOne(req, res, next) {
   try {
     const p = await svc.getById(req.params.id);
@@ -93,5 +132,5 @@ module.exports = {
   addEducation, replaceEducation,
   addExperience, replaceExperience,
   getOne, list, submitAndRecommend,
-  deleteProfile // exportar la nueva función
+  deleteProfile,addSoftSkills,addJobInformation, addTechSkills, addLearningMethod
 };

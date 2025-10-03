@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const validateZod = require('../middlewares/validateZod');
-const { basicSchema, educationItemSchema, experienceItemSchema } = require('../models/profile_schema.js');
+const { basicSchema, educationItemSchema, experienceItemSchema, softSkills, jobInformationSchema, jobInformation, digitalSkills, LearningMethod, learningMethod } = require('../models/profile_schema.js');
 const ctrl = require('../controllers/profile.controllers.js');
 
 const router = Router();
@@ -18,6 +18,20 @@ router.put('/:id/education', validateZod(educationItemSchema.array().min(1)), ct
 // Experiencia: agregar una y reemplazar todas
 router.post('/:id/experience', validateZod(experienceItemSchema), ctrl.addExperience);
 router.put('/:id/experience', validateZod(experienceItemSchema.array().min(1)), ctrl.replaceExperience);
+
+
+//Crear habilidades blandas
+router.post('/:id/softSkills', validateZod(softSkills),ctrl.addSoftSkills);
+
+//Crear habilidades tecnicas
+router.post('/:id/techSkills', validateZod(digitalSkills),ctrl.addTechSkills);
+
+//Job information
+router.post('/:id/jobInformation', validateZod(jobInformation),ctrl.addJobInformation);
+
+
+//Manera de aprender
+router.post('/:id/learningMethod', validateZod(learningMethod),ctrl.addLearningMethod);
 
 // Obtener y listar
 router.get('/', ctrl.list);

@@ -2,49 +2,100 @@ const { z } = require('zod');
 
 // Schema para la parte básica del perfil
 const basicSchema = z.object({
-  firstName: z.string().min(1, "El nombre es obligatorio"),
-  lastName:  z.string().min(1, "El apellido es obligatorio"),
+  name:  z.string().min(1, "El Nombre completo es obligatorio"),
   email:     z.string().email("Debe ser un correo válido"),
-  phone:     z.string().optional(),
-  location:  z.string().optional(),
-  gender:    z.string().optional()
+  age:     z.number().min(1,"Edad obligatoria"),
+  gender: z.array(
+  z.enum(['Masculino','Femenino','Otro','Prefiero no decirlo'])).min(1, "Es obligatorio este campo"),
+  country:  z.string().min(1, "El pais es obligatorio"),
+  state:  z.string().min(1, "El estado es obligatorio"),
+  city:  z.string().min(1, "La ciudad es obligatoria"),
 });
 
 // Schema para cada ítem de educación
 const educationItemSchema = z.object({
   level: z.string().min(1, "Nivel de estudios obligatorio"),
   field: z.string().min(1, "Área o carrera obligatoria"),
-  institution: z.string().min(1, "Institución obligatoria"),
-  startDate: z.coerce.date().optional(),
-  endDate: z.coerce.date().optional(),
-  status: z.enum(['completed','in_progress','dropped']).optional(),
   languages: z.string().min(1,"Escoga al menos un idioma"),
-  certifications: z.array(z.object({
-    name: z.string().min(1, "Nombre de la certificación obligatorio"),
-    issuer: z.string().optional(),
-    date: z.coerce.date().optional()
-  })).optional()
-});
+  certifications: z.string().min(1,"Escoga al menos un idioma").optional(),
+  });
 
 // Schema para cada ítem de experiencia laboral
 const experienceItemSchema = z.object({
-  title: z.string().min(1, "Título obligatorio"),
-  department: z.string().optional(),
-  company: z.string().optional(),
-  startDate: z.coerce.date().optional(),
-  endDate: z.coerce.date().optional(),
-  isCurrent: z.boolean().optional(),
-  responsibilities: z.array(z.string()).optional(),
-  skills: z.array(z.string()).optional(),
+  previousJob: z.string().min(1, "Es obligatorio este campo"),
   projects: z.array(z.object({
-    role_improved: z.string().min(1,"Escoga al menos un rol"),
-      tools: z.string().min(1,"Escriba al menos una herramienta que utilizo"),
-      skill: z.string().optional()
-  })).optional()
+    role_improved: z.string().min(1,"Escoga al menos un rol")
+  })),
+  tools: z.string().min(1,"Campo obligatorio")
 });
+
+//Habilidades Blandas
+const softSkills = z.object({
+  comunicacionEfectiva: z.number()
+    .min(1, { message: "El valor mínimo es 1" })
+    .max(5, { message: "El valor máximo es 5" }),
+  
+  trabajoEnEquipo: z.number()
+    .min(1, { message: "El valor mínimo es 1" })
+    .max(5, { message: "El valor máximo es 5" }),
+  
+  resolucionDeProblemas: z.number()
+    .min(1, { message: "El valor mínimo es 1" })
+    .max(5, { message: "El valor máximo es 5" }),
+  
+  adaptabilidad: z.number()
+    .min(1, { message: "El valor mínimo es 1" })
+    .max(5, { message: "El valor máximo es 5" }),
+  
+  gestionDelTiempo: z.number()
+    .min(1, { message: "El valor mínimo es 1" })
+    .max(5, { message: "El valor máximo es 5" })
+});
+
+const digitalSkills = z.object({
+  herramientas_dig_bas: z.number()
+    .min(1, { message: "El valor mínimo es 1" })
+    .max(5, { message: "El valor máximo es 5" }),
+  
+  herramientas_trabajo: z.number()
+    .min(1, { message: "El valor mínimo es 1" })
+    .max(5, { message: "El valor máximo es 5" }),
+  
+  capacidad_analisis: z.number()
+    .min(1, { message: "El valor mínimo es 1" })
+    .max(5, { message: "El valor máximo es 5" }),
+  
+  gestion_proyecto: z.number()
+    .min(1, { message: "El valor mínimo es 1" })
+    .max(5, { message: "El valor máximo es 5" }),
+  
+  compe_dig_bas: z.number()
+    .min(1, { message: "El valor mínimo es 1" })
+    .max(5, { message: "El valor máximo es 5" })
+});
+
+  const jobInformation = z.object({
+  actualPosition: z.string().min(1, "Puesto actual obligatorio"),
+  timeInJob: z.string().min(1, "Tiempo en el puesto obligatorio"),
+  functionsJob: z.array(z.string().min(1, "Cada función es obligatoria")),
+  technicalReq: z.array(z.string().min(1, "Cada requisito técnico es obligatorio")),
+  improveAreas: z.array(z.string().min(1, "Cada área de mejora es obligatoria"))
+});
+
+const learningMethod = z.object({
+    modalidad_preferida: z.string().min(1, "Campo obligatorio"),
+    tiempo_disponible: z.string().min(1, "Campo obligatorio"),
+    metodo_aprendizaje: z.array(
+      z.enum(["videos", "lecturas", "talleres", "mentoria"])
+    ).min(1, "Debe seleccionar al menos una opción"),
+    certificaciones: z.array(
+      z.enum(["si", "no"])
+    ).min(1, "Debe seleccionar al menos una opción")
+  });
 
 module.exports = {
   basicSchema,
   educationItemSchema,
-  experienceItemSchema
+  experienceItemSchema,
+  softSkills, jobInformation, digitalSkills, learningMethod
 };
