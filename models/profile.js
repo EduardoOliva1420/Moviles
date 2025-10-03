@@ -1,143 +1,70 @@
-const { Schema, model } = require('mongoose');
-const { array } = require('zod');
+// models/profile.js
+const { Schema, model } = require("mongoose");
 
 const educationSchema = new Schema({
-  level: { type: String, required: true },         // ej: Licenciatura, Maestría
-  field: { type: String, required: true },         // área/ carrera
-  languagues: { type: String },
-  certifications: [{ name: String,}],
-}, { _id:true });
+  level: String,
+  field: String,
+  languages: String,
+  certifications: String,
+});
 
 const experienceSchema = new Schema({
-  previousJob: { type: String, required: true },
-  projects: [{
-  role_improved: { type: String, required: true }
-}],
-  tools: { type: String, required:true}
-}, { _id: true });
+  previousJob: String,
+  projects: [{ role_improved: String }],
+  tools: String,
+});
 
-const softSkills = new Schema({
-  comunicacionEfectiva: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5
-  },
-  trabajoEnEquipo: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5
-  },
-  resolucionDeProblemas: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5
-  },
-  adaptabilidad: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5
-  },
-  gestionDelTiempo: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5
-  }
-},{ _id: true });
+const softSkillsSchema = new Schema({
+  comunicacionEfectiva: Number,
+  trabajoEnEquipo: Number,
+  resolucionDeProblemas: Number,
+  adaptabilidad: Number,
+  gestionDelTiempo: Number,
+});
 
-const digitalSkills = new Schema({
-  herramientas_dig_bas: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5
-  },
-  herramientas_trabajo: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5
-  },
-  capacidad_analisis: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5
-  },
-  gestion_proyecto: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5
-  },
-  compe_dig_bas: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5
-  }
-}, { _id: true });
+const digitalSkillsSchema = new Schema({
+  herramientas_dig_bas: Number,
+  herramientas_trabajo: Number,
+  capacidad_analisis: Number,
+  gestion_proyecto: Number,
+  compe_dig_bas: Number,
+});
 
-const learningMethod = new Schema({
-  modalidad_preferida: {
-    type: String,
-    required: true
-  },
-  tiempo_disponible: {
-    type: String,
-    required: true
-  },
-  metodo_aprendizaje: {
-    type: [String],
-    enum: ["videos", "lecturas", "talleres", "mentoria"],
-    required: true
-  },
-  certificaciones: {
-    type: [String],
-    enum: ["si", "no"],
-    required: true
-  }
-}, { _id: true });
-
-
-
-const jobInformation = new Schema({
-  actualPosition: { type: String, required: true},
-  timeInJob: { type: String, required: true},
+const jobInformationSchema = new Schema({
+  actualPosition: String,
+  timeInJob: Number,
   functionsJob: [String],
   technicalReq: [String],
   improveAreas: [String],
-},{ _id:true })
+});
 
-const profileSchema = new Schema({
-  step: { type: Number, default: 1 }, // 1: básicos, 2: educativos, 3: laborales, 4: listo
-  basic: {
-    name:      { type: String, required: true },
-    email:     { type: String, required: true, lowercase: true, index: true },
-    age:       {type: Number, required:true},
-    gender: { type: [String], 
-      enum: ["Masculino", "Femenino", "Otro", "Prefiero no decirlo"], 
-      required: true 
+const learningMethodSchema = new Schema({
+  modalidad_preferida: String,
+  tiempo_disponible: String,
+  metodo_aprendizaje: [String],
+  certificaciones: [String],
+});
+
+const profileSchema = new Schema(
+  {
+    basic: {
+      name: String,
+      email: { type: String, lowercase: true },
+      age: Number,
+      gender: [String],
+      country: String,
+      state: String,
+      city: String,
     },
-    country:   { type: String, required: true, lowercase: true},
-    state:     { type: String, required: true, lowercase: true},
-    city:      { type: String, required: true, lowercase: true}
+    education: [educationSchema],
+    experience: [experienceSchema],
+    softSkills: softSkillsSchema,
+    digitalSkills: digitalSkillsSchema,
+    jobInformation: jobInformationSchema,
+    learningMethod: learningMethodSchema,
+    submittedAt: Date,
   },
-  education: [educationSchema],
-  softSkills: [softSkills],
-  jobInformation: [jobInformation],
-  experience: [experienceSchema],
-  digitalSkills:[digitalSkills],
-  learningMethod:[learningMethod],
-  submittedAt: { type: Date },
-  recommendations: {
-    receivedAt: { type: Date },
-    data: Schema.Types.Mixed // lo que devuelva la API
-  }
-}, { timestamps: true });
+  { timestamps: true }
+);
 
-module.exports = model('Profile', profileSchema);
+module.exports = model("Profile", profileSchema);
