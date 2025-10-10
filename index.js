@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import profileRoutes from "./routes/profile.routes.js";
 import connectDB from "./config/db.js";
 import cors from 'cors';
+import authRoutes from './routes/auth.routes.js'
+
 
 dotenv.config(); // esto carga las variables de .env
 const app = express();
@@ -15,6 +17,7 @@ connectDB()
 
 // Rutas
 app.use('/api/profiles', profileRoutes);
+app.use('/api/auth', authRoutes);
 
 // Puerto
 const PORT = process.env.PORT || 5000;
