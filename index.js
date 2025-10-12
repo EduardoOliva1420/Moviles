@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import profileRoutes from "./routes/profile.routes.js";
 import connectDB from "./config/db.js";
 import cors from 'cors';
-import authRoutes from './routes/auth.routes.js'
+import authRoutes from './routes/auth.routes.js';
 
 
 dotenv.config(); // esto carga las variables de .env

@@ -1,4 +1,5 @@
-module.exports = (schema) => (req, res, next) => {
+// middlewares/validateZod.js
+const validateZod = (schema) => (req, res, next) => {
   const parsed = schema.safeParse(req.body);
   if (!parsed.success) {
     return res.status(400).json({
@@ -9,3 +10,5 @@ module.exports = (schema) => (req, res, next) => {
   req.validated = parsed.data;
   next();
 };
+
+export default validateZod;

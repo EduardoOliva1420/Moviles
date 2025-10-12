@@ -1,8 +1,8 @@
-// routes/profile.routes.js
-const { Router } = require("express");
-const validateZod = require("../middlewares/validateZod");
-const { fullProfileSchema } = require("../models/profile_schema");
-const ctrl = require("../controllers/profile.controllers");
+// Después (ES Modules)
+import { Router } from "express";
+import validateZod from "../middlewares/validateZod.js";
+import { fullProfileSchema } from "../models/profile_schema.js";
+import * as ctrl from "../controllers/profile.controllers.js";
 
 const router = Router();
 
@@ -11,4 +11,4 @@ router.get("/", ctrl.list);
 router.get("/:id", ctrl.getOne);
 router.delete("/:id", ctrl.deleteProfile);
 
-module.exports = router;
+export default router;

@@ -1,5 +1,7 @@
 // models/profile.js
-const { Schema, model } = require("mongoose");
+import mongoose from "mongoose";
+
+const { Schema, model } = mongoose;
 
 const educationSchema = new Schema({
   level: String,
@@ -67,4 +69,5 @@ const profileSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = model("Profile", profileSchema);
+const Profile = model("Profile", profileSchema);
+export default Profile;

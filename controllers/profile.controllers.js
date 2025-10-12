@@ -1,7 +1,8 @@
 // controllers/profile.controllers.js
-const Profile = require("../models/profile");
+import Profile from "../models/profile.js";
 
-async function createFull(req, res, next) {
+// Crear perfil completo
+export async function createFull(req, res, next) {
   try {
     const profile = new Profile(req.validated);
     await profile.save();
@@ -11,7 +12,8 @@ async function createFull(req, res, next) {
   }
 }
 
-async function list(req, res, next) {
+// Listar todos los perfiles
+export async function list(req, res, next) {
   try {
     const profiles = await Profile.find().lean();
     res.json(profiles);
@@ -20,17 +22,19 @@ async function list(req, res, next) {
   }
 }
 
-async function getOne(req, res, next) {
+// Obtener un perfil por ID
+export async function getOne(req, res, next) {
   try {
-    const p = await Profile.findById(req.params.id);
-    if (!p) return res.status(404).json({ message: "Perfil no encontrado" });
-    res.json(p);
+    const profile = await Profile.findById(req.params.id);
+    if (!profile) return res.status(404).json({ message: "Perfil no encontrado" });
+    res.json(profile);
   } catch (e) {
     next(e);
   }
 }
 
-async function deleteProfile(req, res, next) {
+// Eliminar un perfil
+export async function deleteProfile(req, res, next) {
   try {
     const deleted = await Profile.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ message: "Perfil no encontrado" });
@@ -39,5 +43,3 @@ async function deleteProfile(req, res, next) {
     next(e);
   }
 }
-
-module.exports = { createFull, list, getOne, deleteProfile };

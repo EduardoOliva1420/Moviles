@@ -1,5 +1,5 @@
 // models/profile_schema.js
-const { z } = require("zod");
+import { z } from "zod";
 
 const basicSchema = z.object({
   name: z.string().min(1),
@@ -56,7 +56,7 @@ const learningMethod = z.object({
 });
 
 // 🔹 Nuevo schema unificado
-const fullProfileSchema = z.object({
+export const fullProfileSchema = z.object({
   basic: basicSchema,
   education: z.array(educationItemSchema).optional(),
   experience: z.array(experienceItemSchema).optional(),
@@ -65,7 +65,3 @@ const fullProfileSchema = z.object({
   jobInformation: jobInformation.optional(),
   learningMethod: learningMethod.optional(),
 });
-
-module.exports = {
-  fullProfileSchema,
-};
