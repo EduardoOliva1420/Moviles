@@ -1,12 +1,23 @@
 // controllers/profile.controllers.js
 import Profile from "../models/profile.js";
+import { generateRecommendationsMessage } from "../services/openai.recommender.js";
 
 // Crear perfil completo
 export async function createFull(req, res, next) {
   try {
-    const profile = new Profile(req.validated);
+
+    const profile = new Profile({ ...req.validated, submittedAt: req.validated?.submittedAt || new Date() });
     await profile.save();
-    res.status(201).json(profile);
+    // Generate a single message with OpenAI recommendations (best-effort)
+    let message;
+    try {
+      const plain = typeof profile.toObject === 'function' ? profile.toObject() : JSON.parse(JSON.stringify(profile));
+      message = await generateRecommendationsMessage(plain);
+    } catch (aiErr) {
+      message = "No se pudieron generar recomendaciones ahora.";
+    }
+
+    res.status(201).json({ message });
   } catch (e) {
     next(e);
   }
