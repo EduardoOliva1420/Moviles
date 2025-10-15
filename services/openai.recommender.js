@@ -63,11 +63,11 @@ Identifica y clasifica las brechas entre el perfil actual y el perfil objetivo:
 - Conocimientos que requieren consolidación
 Asigna prioridad (Alta / Media / Baja) a cada brecha según su impacto en el objetivo profesional.
 
-### 5. Plan de capacitación (3 meses sugeridos)
-Organiza una ruta de aprendizaje por fases, con metas claras y actividades concretas:
-Mes 1 – Foco inicial (por ejemplo, adquisición de nuevas habilidades técnicas).
-Mes 2 – Profundización (por ejemplo, mejora de habilidades interpersonales o gestión).
-Mes 3 – Aplicación práctica (por ejemplo, participación en proyectos reales o simulaciones).
+### 5. Plan de capacitación
+Organiza una ruta de aprendizaje por fases, con metas claras y actividades concretas, dividido en las siguientes fases y por la cantidad de meses seleccionados por el usuario:
+Foco inicial (por ejemplo, adquisición de nuevas habilidades técnicas).
+Profundización (por ejemplo, mejora de habilidades interpersonales o gestión).
+Aplicación práctica (por ejemplo, participación en proyectos reales o simulaciones).
 Incluye métodos sugeridos: cursos en línea, presenciales o híbridos dependiendo de la opción seleccionada y las recomendaciones, proyectos o prácticas, autoevaluaciones, participación en comunidades.
 
 ### 6. Cursos y recursos reales recomendados
@@ -94,7 +94,7 @@ Recomendaciones adicionales: lecturas, comunidades, certificaciones o prácticas
 - Usa un lenguaje profesional, accesible y motivador.
 - Presenta la información con espaciado y encabezados claros.
 - Evita listas numeradas automáticas (usa encabezados o manuales).
-- Evita todos los tipos de viñetas, si fuera útil/necesario poner algo por el estilo, hazlo manual, es decir usando guiones o números, ya que las viñetas obstruyen el formato Markdown.
+- No uses ningún formato de lista (sin viñetas, numeración ni Markdown). Si necesitas enumerar ideas, hazlo manualmente usando guiones o números.
 - Organiza el contenido en secciones bien separadas, tipo ficha de análisis.
 - Integra las explicaciones de manera fluida dentro de cada sección.
 Presenta todo en formato Markdown, con razonamiento paso a paso antes de las conclusiones.`;
