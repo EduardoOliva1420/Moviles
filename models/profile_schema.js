@@ -5,7 +5,7 @@ const basicSchema = z.object({
   name: z.string().min(1),
   email: z.string().email(),
   age: z.number().min(1),
-  gender: z.array(z.enum(["Masculino","Femenino","Otro","Prefiero no decirlo"])).min(1),
+  gender: z.array(z.enum(["Masculino","Femenino","Otro / Prefiero no decirlo"])).min(1),
   country: z.string().min(1),
   state: z.string().min(1),
   city: z.string().min(1),
