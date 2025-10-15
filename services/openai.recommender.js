@@ -27,20 +27,53 @@ export async function generateRecommendations(profile) {
     client = new OpenAI({ apiKey });
   }
 
-  const system = "Eres AuraLearn, un asistente experto en desarrollo profesional potenciado por IA. Tu misión es analizar el perfil del usuario y construir un diagnóstico, identificar brechas y proponer un plan de formación personalizado con cursos reales, siguiendo instrucciones detalladas.";
+  const system = "Eres AuraLearn, un asistente experto en desarrollo profesional impulsado por inteligencia artificial. Tu objetivo es ayudar al usuario a alcanzar sus metas profesionales mediante un análisis completo de su perfil y la creación de un plan de capacitación personalizado.";
   const user = `A continuación te proporciono el perfil del usuario en formato JSON, junto con el puesto objetivo y sus preferencias de aprendizaje. Realiza el análisis y recomendaciones siguiendo este esquema:\n
 ${JSON.stringify(profile)}
 \n
 ### Instrucciones
-${`
-1. Extrae información del CV y presenta un resumen conciso.
-2. Diagnostica el perfil en dimensiones: competencias integrales, habilidades técnicas, habilidades blandas, conocimientos teóricos, competencias interpersonales. Evalúa cada una y justifica.
-3. Sugiere 3 roles meta alternativos y explica por qué.
-4. Detecta brechas respecto al puesto objetivo y priorízalas.
-5. Construye un plan de capacitación a 3 meses con metas mensurables y métodos sugeridos.
-6. Recomienda cursos reales en línea que cumplan las preferencias del usuario, con nombre, plataforma, descripción, enlace, justificación y duración.
-7. Genera un informe final estructurado con diagnóstico, brechas, ruta de aprendizaje, cursos recomendados, indicadores de progreso y recomendaciones adicionales.
-Presenta todo en formato Markdown, con razonamiento paso a paso antes de las conclusiones.`}`;
+Analiza el CV completo del usuario (formación, experiencia, certificaciones, proyectos, habilidades, idiomas, etc.).
+Identifica el puesto deseado y entiende las competencias, habilidades técnicas y conocimientos requeridos para alcanzarlo.
+Compara el perfil actual con el perfil ideal, detectando brechas clave.
+Genera un plan de capacitación estructurado (por etapas o meses) que ayude al usuario a cerrar esas brechas.
+Recomienda cursos reales y actualizados en línea, en el idioma y formato que el usuario prefiera.
+Entrega un reporte final claro y profesional, que sirva como guía práctica de desarrollo.
+
+#### Estructura del análisis
+
+**Competencias, habilidades y conocimientos**
+Evalúa el perfil en cinco dimensiones:
+a. Competencias estratégicas (planificación, liderazgo, resolución de problemas, toma de decisiones)
+b. Habilidades técnicas (tecnologías, metodologías, herramientas, procesos)
+c. Habilidades blandas (comunicación, trabajo en equipo, adaptabilidad, liderazgo, organización)
+d. Conocimientos clave (dominios teóricos y conceptuales relevantes)
+e. Competencias interpersonales y de gestión (relación con colegas, empatía, influencia, gestión de conflictos)
+Para cada dimensión, señala brevemente el nivel estimado (Básico / Intermedio / Avanzado) y explica cómo se infiere del CV.
+
+**Roles meta y trayectorias posibles**
+Sugiere tres roles alternativos o intermedios a los que el usuario podría aspirar según su perfil, con breve explicación de por qué cada uno es viable.
+
+**Brechas principales y áreas de mejora**
+Identifica y clasifica las brechas entre el perfil actual y el perfil objetivo: competencias a reforzar, habilidades técnicas que debe adquirir o actualizar, conocimientos que requieren consolidación. Asigna prioridad (Alta / Media / Baja) a cada brecha según su impacto.
+
+**Plan de capacitación (Los meses requeridos)**
+Organiza una ruta de aprendizaje por fases, con metas claras y actividades concretas para cada mes. Incluye métodos sugeridos: cursos en línea, proyectos, autoevaluaciones, participación en comunidades.
+
+**Cursos y recursos reales recomendados**
+Para cada competencia o habilidad clave, busca cursos reales disponibles en línea. Incluye nombre, plataforma, descripción breve, idioma, enlace directo, duración estimada y motivo de la recomendación. Prefiere plataformas reconocidas y ajusta a los parámetros del usuario.
+
+**Reporte final de desarrollo**
+El informe final debe estar estructurado y agradable a la vista, en formato Markdown, y contener:
+- Perfil resumido
+- Brechas detectadas (tabla o lista con prioridades)
+- Ruta de aprendizaje (plan mes a mes o por fases)
+- Cursos recomendados (listado con enlaces y duración)
+- Indicadores de progreso (cómo sabrá el usuario que está avanzando)
+- Recomendaciones adicionales (lecturas, comunidades, certificaciones, prácticas)
+
+**Estilo y tono**
+Usa lenguaje profesional, accesible y motivador. Presenta la información con espaciado y encabezados claros. Evita listas numeradas automáticas. Organiza el contenido en secciones bien separadas, tipo ficha de análisis. Integra las explicaciones de manera fluida dentro de cada sección.
+Presenta todo en formato Markdown, con razonamiento paso a paso antes de las conclusiones.`;
 
   try {
     const resp = await client.chat.completions.create({
@@ -72,20 +105,53 @@ export async function generateRecommendationsMessage(profile) {
   }
 
   // ...existing code...
-  const system = "Eres AuraLearn, un asistente experto en desarrollo profesional potenciado por IA. Tu misión es analizar el perfil del usuario y construir un diagnóstico, identificar brechas y proponer un plan de formación personalizado con cursos reales, siguiendo instrucciones detalladas.";
+  const system = "Eres AuraLearn, un asistente experto en desarrollo profesional impulsado por inteligencia artificial. Tu objetivo es ayudar al usuario a alcanzar sus metas profesionales mediante un análisis completo de su perfil y la creación de un plan de capacitación personalizado.";
   const user = `A continuación te proporciono el perfil del usuario en formato JSON, junto con el puesto objetivo y sus preferencias de aprendizaje. Realiza el análisis y recomendaciones siguiendo este esquema:\n
 ${JSON.stringify(profile)}
 \n
 ### Instrucciones
-${`
-1. Extrae información del CV y presenta un resumen conciso.
-2. Diagnostica el perfil en dimensiones: competencias integrales, habilidades técnicas, habilidades blandas, conocimientos teóricos, competencias interpersonales. Evalúa cada una y justifica.
-3. Sugiere 3 roles meta alternativos y explica por qué.
-4. Detecta brechas respecto al puesto objetivo y priorízalas.
-5. Construye un plan de capacitación a 3 meses con metas mensurables y métodos sugeridos.
-6. Recomienda cursos reales en línea que cumplan las preferencias del usuario, con nombre, plataforma, descripción, enlace, justificación y duración.
-7. Genera un informe final estructurado con diagnóstico, brechas, ruta de aprendizaje, cursos recomendados, indicadores de progreso y recomendaciones adicionales.
-Presenta todo en formato Markdown, con razonamiento paso a paso antes de las conclusiones.`}`;
+Analiza el CV completo del usuario (formación, experiencia, certificaciones, proyectos, habilidades, idiomas, etc.).
+Identifica el puesto deseado y entiende las competencias, habilidades técnicas y conocimientos requeridos para alcanzarlo.
+Compara el perfil actual con el perfil ideal, detectando brechas clave.
+Genera un plan de capacitación estructurado (por etapas o meses) que ayude al usuario a cerrar esas brechas.
+Recomienda cursos reales y actualizados en línea, en el idioma y formato que el usuario prefiera.
+Entrega un reporte final claro y profesional, que sirva como guía práctica de desarrollo.
+
+#### Estructura del análisis
+
+**Competencias, habilidades y conocimientos**
+Evalúa el perfil en cinco dimensiones:
+a. Competencias estratégicas (planificación, liderazgo, resolución de problemas, toma de decisiones)
+b. Habilidades técnicas (tecnologías, metodologías, herramientas, procesos)
+c. Habilidades blandas (comunicación, trabajo en equipo, adaptabilidad, liderazgo, organización)
+d. Conocimientos clave (dominios teóricos y conceptuales relevantes)
+e. Competencias interpersonales y de gestión (relación con colegas, empatía, influencia, gestión de conflictos)
+Para cada dimensión, señala brevemente el nivel estimado (Básico / Intermedio / Avanzado) y explica cómo se infiere del CV.
+
+**Roles meta y trayectorias posibles**
+Sugiere tres roles alternativos o intermedios a los que el usuario podría aspirar según su perfil, con breve explicación de por qué cada uno es viable.
+
+**Brechas principales y áreas de mejora**
+Identifica y clasifica las brechas entre el perfil actual y el perfil objetivo: competencias a reforzar, habilidades técnicas que debe adquirir o actualizar, conocimientos que requieren consolidación. Asigna prioridad (Alta / Media / Baja) a cada brecha según su impacto.
+
+**Plan de capacitación (Los meses requeridos)**
+Organiza una ruta de aprendizaje por fases, con metas claras y actividades concretas para cada mes. Incluye métodos sugeridos: cursos en línea, proyectos, autoevaluaciones, participación en comunidades.
+
+**Cursos y recursos reales recomendados**
+Para cada competencia o habilidad clave, busca cursos reales disponibles en línea. Incluye nombre, plataforma, descripción breve, idioma, enlace directo, duración estimada y motivo de la recomendación. Prefiere plataformas reconocidas y ajusta a los parámetros del usuario.
+
+**Reporte final de desarrollo**
+El informe final debe estar estructurado y agradable a la vista, en formato Markdown, y contener:
+- Perfil resumido
+- Brechas detectadas (tabla o lista con prioridades)
+- Ruta de aprendizaje (plan mes a mes o por fases)
+- Cursos recomendados (listado con enlaces y duración)
+- Indicadores de progreso (cómo sabrá el usuario que está avanzando)
+- Recomendaciones adicionales (lecturas, comunidades, certificaciones, prácticas)
+
+**Estilo y tono**
+Usa lenguaje profesional, accesible y motivador. Presenta la información con espaciado y encabezados claros. Evita listas numeradas automáticas. Organiza el contenido en secciones bien separadas, tipo ficha de análisis. Integra las explicaciones de manera fluida dentro de cada sección.
+Presenta todo en formato Markdown, con razonamiento paso a paso antes de las conclusiones.`;
 // ...existing code...
 
   try {
