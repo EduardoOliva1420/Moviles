@@ -27,9 +27,20 @@ export async function generateRecommendations(profile) {
     client = new OpenAI({ apiKey });
   }
 
-  const system = "Eres un asesor de carrera y aprendizaje. Estructura y prioriza recomendaciones claras y accionables.";
-  const user = `Con los siguientes datos de perfil en JSON, genera recomendaciones personalizadas para el próximo trimestre.\n`
-    `${JSON.stringify(profile)}`;
+  const system = "Eres AuraLearn, un asistente experto en desarrollo profesional potenciado por IA. Tu misión es analizar el perfil del usuario y construir un diagnóstico, identificar brechas y proponer un plan de formación personalizado con cursos reales, siguiendo instrucciones detalladas.";
+  const user = `A continuación te proporciono el perfil del usuario en formato JSON, junto con el puesto objetivo y sus preferencias de aprendizaje. Realiza el análisis y recomendaciones siguiendo este esquema:\n
+${JSON.stringify(profile)}
+\n
+### Instrucciones
+${`
+1. Extrae información del CV y presenta un resumen conciso.
+2. Diagnostica el perfil en dimensiones: competencias integrales, habilidades técnicas, habilidades blandas, conocimientos teóricos, competencias interpersonales. Evalúa cada una y justifica.
+3. Sugiere 3 roles meta alternativos y explica por qué.
+4. Detecta brechas respecto al puesto objetivo y priorízalas.
+5. Construye un plan de capacitación a 3 meses con metas mensurables y métodos sugeridos.
+6. Recomienda cursos reales en línea que cumplan las preferencias del usuario, con nombre, plataforma, descripción, enlace, justificación y duración.
+7. Genera un informe final estructurado con diagnóstico, brechas, ruta de aprendizaje, cursos recomendados, indicadores de progreso y recomendaciones adicionales.
+Presenta todo en formato Markdown, con razonamiento paso a paso antes de las conclusiones.`}`;
 
   try {
     const resp = await client.chat.completions.create({
@@ -60,9 +71,22 @@ export async function generateRecommendationsMessage(profile) {
     client = new OpenAI({ apiKey });
   }
 
-  const system = "Eres un asesor de carrera y aprendizaje. Devuelve una respuesta breve y clara en español con recomendaciones accionables.";
-  const user = `Con los siguientes datos de perfil en JSON, redacta recomendaciones personalizadas para el próximo trimestre en formato de viñetas cortas.\n` +
-    `Perfil:\n${JSON.stringify(profile)}`;
+  // ...existing code...
+  const system = "Eres AuraLearn, un asistente experto en desarrollo profesional potenciado por IA. Tu misión es analizar el perfil del usuario y construir un diagnóstico, identificar brechas y proponer un plan de formación personalizado con cursos reales, siguiendo instrucciones detalladas.";
+  const user = `A continuación te proporciono el perfil del usuario en formato JSON, junto con el puesto objetivo y sus preferencias de aprendizaje. Realiza el análisis y recomendaciones siguiendo este esquema:\n
+${JSON.stringify(profile)}
+\n
+### Instrucciones
+${`
+1. Extrae información del CV y presenta un resumen conciso.
+2. Diagnostica el perfil en dimensiones: competencias integrales, habilidades técnicas, habilidades blandas, conocimientos teóricos, competencias interpersonales. Evalúa cada una y justifica.
+3. Sugiere 3 roles meta alternativos y explica por qué.
+4. Detecta brechas respecto al puesto objetivo y priorízalas.
+5. Construye un plan de capacitación a 3 meses con metas mensurables y métodos sugeridos.
+6. Recomienda cursos reales en línea que cumplan las preferencias del usuario, con nombre, plataforma, descripción, enlace, justificación y duración.
+7. Genera un informe final estructurado con diagnóstico, brechas, ruta de aprendizaje, cursos recomendados, indicadores de progreso y recomendaciones adicionales.
+Presenta todo en formato Markdown, con razonamiento paso a paso antes de las conclusiones.`}`;
+// ...existing code...
 
   try {
     const resp = await client.chat.completions.create({
