@@ -4,6 +4,7 @@ import profileRoutes from "./routes/profile.routes.js";
 import connectDB from "./config/db.js";
 import cors from 'cors';
 import authRoutes from './routes/auth.routes.js';
+import saasRoutes from './routes/saas.routes.js';
 
 
 dotenv.config(); // esto carga las variables de .env
@@ -18,6 +19,7 @@ connectDB()
 // Rutas
 app.use('/api/profiles', profileRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/saas', saasRoutes);
 
 // Puerto
 const PORT = process.env.PORT || 5000;

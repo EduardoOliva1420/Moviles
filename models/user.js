@@ -3,9 +3,59 @@ import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  nombre: {
+    type: String,
+    required: true
+  },
+  apellido: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  rol: {
+    type: String,
+    enum: ['super_usuario', 'empresa', 'encargado_capacitacion', 'colaborador'],
+    required: true
+  },
+  estado: {
+    type: String,
+    enum: ['activo', 'pendiente_activacion', 'inactivo'],
+    default: 'pendiente_activacion'
+  },
+  empresaId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Empresa',
+    default: null
+  },
+  permisos: [{
+    type: String
+  }],
+  perfilCompleto: {
+    type: Boolean,
+    default: false
+  },
+  perfilId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Profile',
+    default: null
+  },
+  fechaCreacion: {
+    type: Date,
+    default: Date.now
+  },
+  fechaActualizacion: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 userSchema.pre("save", async function (next) {

@@ -49,6 +49,13 @@ const learningMethodSchema = new Schema({
 
 const profileSchema = new Schema(
   {
+    usuarioId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+      unique: true
+    },
+    targetPosition: String,
     basic: {
       name: String,
       email: { type: String, lowercase: true },
